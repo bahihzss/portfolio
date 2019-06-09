@@ -1,21 +1,59 @@
 <template>
-  <div class="VueToNuxtLogo">
-    <div class="Triangle Triangle--two" />
-    <div class="Triangle Triangle--one" />
-    <div class="Triangle Triangle--three" />
-    <div class="Triangle Triangle--four" />
+  <div v-show="show" class="Logo" :class="[{ rotated }]">
+    <div class="Triangle two" />
+    <div class="Triangle one" />
+    <div class="Triangle three" />
   </div>
 </template>
 
+<script>
+import sleep from '~/helpers/sleep'
+
+export default {
+  name: 'Logo',
+
+  data() {
+    return {
+      show: false,
+      rotated: false
+    }
+  },
+
+  methods: {
+    async start() {
+      this.show = true
+      await sleep(2200)
+    },
+
+    async rotate() {
+      this.rotated = true
+      await sleep(1200)
+    }
+  }
+}
+</script>
+
 <style>
-.VueToNuxtLogo {
+.Logo {
   display: inline-block;
-  animation: turn 2s linear forwards 1s;
-  transform: rotateX(180deg);
+  transform: rotate(-90deg);
   position: relative;
   overflow: hidden;
-  height: 180px;
-  width: 245px;
+  transition: transform 0.8s ease-in-out;
+  animation: draw-logo 1s ease-out forwards;
+  height: 0;
+  width: 0;
+}
+
+.Logo.rotated {
+  transform: rotate(-10deg);
+}
+
+@keyframes draw-logo {
+  100% {
+    height: 180px;
+    width: 170px;
+  }
 }
 
 .Triangle {
@@ -26,54 +64,44 @@
   height: 0;
 }
 
-.Triangle--one {
-  border-left: 105px solid transparent;
-  border-right: 105px solid transparent;
-  border-bottom: 180px solid #41b883;
+.Triangle.one {
+  border-bottom: 0 solid #4183b8;
+  border-right: 0 solid transparent;
+  animation: draw-one 1s ease-out forwards;
 }
 
-.Triangle--two {
-  top: 30px;
-  left: 35px;
-  animation: goright 0.5s linear forwards 3.5s;
-  border-left: 87.5px solid transparent;
-  border-right: 87.5px solid transparent;
-  border-bottom: 150px solid #3b8070;
-}
-
-.Triangle--three {
-  top: 60px;
-  left: 35px;
-  animation: goright 0.5s linear forwards 3.5s;
-  border-left: 70px solid transparent;
-  border-right: 70px solid transparent;
-  border-bottom: 120px solid #35495e;
-}
-
-.Triangle--four {
-  top: 120px;
-  left: 70px;
-  animation: godown 0.5s linear forwards 3s;
-  border-left: 35px solid transparent;
-  border-right: 35px solid transparent;
-  border-bottom: 60px solid #fff;
-}
-
-@keyframes turn {
+@keyframes draw-one {
   100% {
-    transform: rotateX(0deg);
+    border-right-width: 170px;
+    border-bottom-width: 180px;
   }
 }
 
-@keyframes godown {
+.Triangle.two {
+  border-right: 0 solid transparent;
+  border-top: 0 solid #3b6080;
+  animation: draw-two 0.8s linear forwards 1s;
+}
+
+@keyframes draw-two {
   100% {
-    top: 180px;
+    border-top-width: 180px;
+    border-right-width: 170px;
   }
 }
 
-@keyframes goright {
+.Triangle.three {
+  border-left: 0 solid #33475a;
+  border-top: 0 solid transparent;
+  border-bottom: 0 solid transparent;
+  animation: draw-three 0.8s linear forwards 1s;
+}
+
+@keyframes draw-three {
   100% {
-    left: 70px;
+    border-left-width: 85px;
+    border-top-width: 90px;
+    border-bottom-width: 90px;
   }
 }
 </style>

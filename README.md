@@ -1,12 +1,13 @@
-# portfolio
+# My portfolio.
 
-> My portfolio.
+This is my portfolio.  
+Created with Nuxt.js. 
 
 ## Build Setup
 
 ``` bash
 # install dependencies
-$ yarn install
+$ yarn
 
 # serve with hot reload at localhost:3000
 $ yarn run dev
@@ -18,5 +19,3 @@ $ yarn start
 # generate static project
 $ yarn run generate
 ```
-
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
